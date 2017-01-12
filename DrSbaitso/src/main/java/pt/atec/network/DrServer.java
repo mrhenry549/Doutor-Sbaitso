@@ -9,11 +9,14 @@ import pt.atec.drsbaitso.Inteligence;
 
 public class DrServer {
 
-    private final int PORTO = 9983;
+    private final int PORTO = 9975;
     
     PrintWriter out;
     BufferedReader in;
     Inteligence mind;
+    String inputLine, outputLine;
+    
+    String greet = mind.getGreeting();
 
     public DrServer() {
         mind = new Inteligence();
@@ -29,9 +32,6 @@ public class DrServer {
             System.out.println(e.getMessage());
         }
 
-        String inputLine, outputLine;
-
-        String greet = mind.getGreeting();
 
         try {
             out.println("bom dia");

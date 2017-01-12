@@ -18,4 +18,5 @@
             <version>20160810</version>
         </dependency>
     </dependencies>
+    <name>chATEC</name>
 </project>

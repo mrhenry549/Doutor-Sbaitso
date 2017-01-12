@@ -10,7 +10,7 @@ import pt.atec.drsbaitso.Inteligence;
 public class DrClient {
 
     private final int PORTO = 9983;
-    private final String IP = "192.168.250.132";
+    private final String IP = "192.168.250.231";
     
     PrintWriter out;
     BufferedReader in;
