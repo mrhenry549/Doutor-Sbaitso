@@ -15,6 +15,8 @@ public class DrClient {
     PrintWriter out;
     BufferedReader in;
     Inteligence mind;
+    
+    int num = 1;
 
     public DrClient() {
         mind = new Inteligence();
@@ -35,13 +37,14 @@ public class DrClient {
 
         try {
             out.println();
-            
+            while(num != 0){
             inputLine = in.readLine();
             
             System.out.println(inputLine);
             
-            System.out.println("Bajule o seu Servidor");
+            //System.out.println("Bajule o seu Servidor");
             String msg = (new Scanner(System.in)).nextLine();
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

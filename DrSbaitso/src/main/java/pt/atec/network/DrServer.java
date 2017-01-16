@@ -5,21 +5,23 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 import pt.atec.drsbaitso.Inteligence;
 
 public class DrServer {
 
-    private final int PORTO = 9975;
+    private final int PORTO = 9983;
     
     PrintWriter out;
     BufferedReader in;
     Inteligence mind;
-    String inputLine, outputLine;
-    
-    String greet = mind.getGreeting();
+    String inputLine, outputLine, msg;
+    int num = 1;
 
     public DrServer() {
         mind = new Inteligence();
+        
+        String greet = mind.getGreeting();
 
         try {
             ServerSocket ssoc = new ServerSocket(PORTO);
@@ -35,10 +37,15 @@ public class DrServer {
 
         try {
             out.println("bom dia");
-            
-            inputLine = in.readLine();
+            while(num != 0){
+                inputLine = in.readLine();
 
-            System.out.println(inputLine);
+                System.out.println(inputLine);
+
+                msg = (new Scanner(System.in)).nextLine();
+
+                out.println(msg);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
