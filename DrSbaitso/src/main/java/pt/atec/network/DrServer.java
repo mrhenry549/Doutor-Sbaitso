@@ -23,7 +23,7 @@ public class DrServer {
             while (!msgin.equals("fim")) {
                 msgin = din.readUTF();
                 System.out.println(msgin);
-                msgout = br.readLine();
+                //msgout = br.readLine();
                 dout.writeUTF(msgout);
                 dout.flush();
             }
