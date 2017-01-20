@@ -3,46 +3,37 @@ package pt.atec.network;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.Socket;
 
-/**
- *
- * @author Userpl022pc19
- */
 public class DrClient {
-    
+
     private final int PORTO = 9983;
-    private final String IP = "192.168.0.54";
-    
-    Socket s;
-    
-    DataInputStream din;
-    DataOutputStream dout;
-    
-    BufferedReader br;
-    
-    String msgin="", msgout="";
+    private final String IP = "192.168.250.250";
 
     public DrClient() {
-        try{
-            
-            s = new Socket(IP,PORTO);
-            
-            din = new DataInputStream(s.getInputStream());
-            dout = new DataOutputStream(s.getOutputStream());
-            
-            while(!msgin.equals("fim")){
-                msgin = din.readUTF();
-                System.out.println(msgin);
+        try {
+
+            Socket sock = new Socket(IP, PORTO);
+
+            DataInputStream din = new DataInputStream(sock.getInputStream());
+            DataOutputStream dout = new DataOutputStream(sock.getOutputStream());
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+            String msgin = "", msgout = "";
+
+            while (!msgin.equals("fim")) {
                 msgout = br.readLine();
                 dout.writeUTF(msgout);
-                dout.flush();
+                msgin = din.readUTF();
+                System.out.println(msgin);
             }
-            s.close();
-            
-        }catch(Exception e){
-            
+            sock.close();
+
+        } catch (Exception e) {
+
         }
     }
-    
+
 }
