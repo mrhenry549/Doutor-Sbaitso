@@ -1,13 +1,9 @@
 package pt.atec.network;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -18,64 +14,34 @@ public class DrClient {
     private final int PORTO = 9983;
     private final String IP = "192.168.0.54";
     
-    PrintWriter out;
-    BufferedReader in;
+    Socket s;
     
-    OutputStream os;
-    InputStream is;
+    DataInputStream din;
+    DataOutputStream dout;
+    
+    BufferedReader br;
+    
+    String msgin="", msgout="";
 
     public DrClient() {
-
-        try {
-
-            Socket ssoc = new Socket(IP, PORTO);
+        try{
             
-
-            /*out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));*/
+            s = new Socket(IP,PORTO);
             
-            os = ssoc.getOutputStream();
-            is = ssoc.getInputStream();
+            din = new DataInputStream(s.getInputStream());
+            dout = new DataOutputStream(s.getOutputStream());
             
-            String st = "Esta turma é espetacular";
-            byte[] bs = st.getBytes();
-            
-            
-            
-            os.write(bs);
-            
-            byte bin = 0;
-            ArrayList<Byte> arb = new ArrayList<Byte>();
-            
-            while (bin >= 0){
-                bin = (byte) is.read();
-                arb.add(bin);
+            while(!msgin.equals("fim")){
+                msgin = din.readUTF();
+                System.out.println(msgin);
+                msgout = br.readLine();
+                dout.writeUTF(msgout);
+                dout.flush();
             }
+            s.close();
             
-           byte[] b = new byte[arb.size()];
-           
-           for(int i = 0; i < arb.size(); i++){
-               b[i] = arb.get(i);
-           }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        String inputLine, outputLine;
-
-        //String greet = mind.getGreating();
-
-        try {
-            out.println();
+        }catch(Exception e){
             
-            inputLine = in.readLine();
-            
-            System.out.println(inputLine);
-            
-            System.out.println("Bajule o seu Servidor");
-            String msg = (new Scanner(System.in)).nextLine();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
     
